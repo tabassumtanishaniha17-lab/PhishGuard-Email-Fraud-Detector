@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color" content="#080d18">
+
+    <meta name="description"
+          content="PhishGuard helps analyze suspicious email content and identify potential phishing indicators.">
+
+    <title>PhishGuard | Email Security Analyzer</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="background-glow glow-one"></div>
+    <div class="background-glow glow-two"></div>
+
+    <header class="topbar">
+        <a href="#" class="brand">
+            <div class="brand-icon">🛡️</div>
+
+            <div>
+                <h1>Phish<span>Guard</span></h1>
+                <p>EMAIL SECURITY ANALYZER</p>
+            </div>
+        </a>
+
+        <div class="status">
+            <span class="status-dot"></span>
+            SYSTEM READY
+        </div>
+    </header>
+
+    <main class="container">
+
+        <section class="hero">
+            <div class="eyebrow">
+                <span>✦</span>
+                SMART EMAIL PROTECTION
+            </div>
+
+            <h2>
+                Don't trust every<br>
+                <span>email you receive.</span>
+            </h2>
+
+            <p class="hero-description">
+                Analyze suspicious email content, discover warning
+                signs, and make safer decisions online.
+            </p>
+        </section>
+
+
+        <section class="stats-grid">
+
+            <div class="stat-card">
+                <div class="stat-top">
+                    <span class="stat-icon purple">⌕</span>
+                    <span class="stat-label">ANALYZER</span>
+                </div>
+
+                <h3>Rule-Based</h3>
+                <p>Detection engine</p>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-top">
+                    <span class="stat-icon green">✓</span>
+                    <span class="stat-label">PRIVACY</span>
+                </div>
+
+                <h3>Local</h3>
+                <p>Browser analysis</p>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-top">
+                    <span class="stat-icon blue">◷</span>
+                    <span class="stat-label">HISTORY</span>
+                </div>
+
+                <h3 id="analysisCount">0</h3>
+                <p>Analyses this session</p>
+            </div>
+
+        </section>
+
+
+        <section class="analyzer-card">
+
+            <div class="section-heading">
+                <div>
+                    <div class="section-kicker">
+                        <span class="live-dot"></span>
+                        ANALYSIS CENTER
+                    </div>
+
+                    <h3>Inspect an Email</h3>
+
+                    <p>
+                        Paste the email content you want to examine.
+                    </p>
+                </div>
+
+                <div class="heading-shield">⌁</div>
+            </div>
+
+
+            <form id="analyzerForm">
+
+                <label for="emailSubject">
+                    EMAIL SUBJECT
+                    <span class="optional">OPTIONAL</span>
+                </label>
+
+                <input
+                    type="text"
+                    id="emailSubject"
+                    maxlength="300"
+                    placeholder="e.g. Urgent: Verify your account"
+                >
+
+
+                <div class="textarea-heading">
+                    <label for="emailContent">EMAIL CONTENT</label>
+                    <span id="charCount">0 characters</span>
+                </div>
+
+                <textarea
+                    id="emailContent"
+                    maxlength="20000"
+                    placeholder="Paste your email text here...
+
+Example:
+Your account requires verification.
+Please visit our website to review your account."
+                    required
+                ></textarea>
+
+
+                <div class="privacy-note">
+                    <span>🔒</span>
+
+                    <p>
+                        Your text is analyzed locally in this browser.
+                        This tool does not send your email to a server.
+                    </p>
+                </div>
+
+
+                <div class="button-group">
+
+                    <button type="submit" class="analyze-btn">
+                        <span>⌕</span>
+                        Analyze Email
+                        <span class="button-arrow">→</span>
+                    </button>
+
+                    <button type="button" id="sampleBtn" class="secondary-btn">
+                        Try Sample
+                    </button>
+
+                    <button type="button" id="clearBtn" class="clear-btn">
+                        Clear
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+
+        <section id="results" class="results-section" hidden>
+
+            <div class="results-header">
+                <div>
+                    <div class="section-kicker">ANALYSIS REPORT</div>
+                    <h3>Security Assessment</h3>
+                </div>
+
+                <span id="resultBadge" class="result-badge">
+                    ANALYZED
+                </span>
+            </div>
+
+
+            <div class="score-card">
+
+                <div class="score-ring" id="scoreRing">
+                    <div class="score-inner">
+                        <strong id="riskScore">0</strong>
+                        <span>/ 100</span>
+                    </div>
+                </div>
+
+                <div class="score-information">
+                    <p class="score-caption">INDICATOR SCORE</p>
+
+                    <h4 id="riskTitle">Analysis complete</h4>
+
+                    <p id="riskDescription">
+                        Review the detected indicators below.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="progress-container">
+                <div class="progress-track">
+                    <div id="scoreProgress" class="progress-fill"></div>
+                </div>
+
+                <div class="progress-labels">
+                    <span>LOW</span>
+                    <span>MEDIUM</span>
+                    <span>HIGH</span>
+                </div>
+            </div>
+
+
+            <div class="indicator-panel">
+
+                <div class="panel-heading">
+                    <h4>Detected Indicators</h4>
+                    <span id="indicatorCount">0 found</span>
+                </div>
+
+                <div id="indicatorList" class="indicator-list"></div>
+
+            </div>
+
+
+            <div class="recommendation-card">
+                <div class="recommendation-icon">🛡️</div>
+
+                <div>
+                    <h4>Safety Recommendation</h4>
+
+                    <p id="recommendationText">
+                        Always verify suspicious messages independently.
+                    </p>
+                </div>
+            </div>
+
+
+            <p class="disclaimer">
+                This score represents heuristic indicators, not a
+                calibrated probability of fraud. Legitimate emails
+                may trigger warnings, and malicious emails may go
+                undetected. Do not rely on this result alone.
+            </p>
+
+        </section>
+
+
+        <section class="history-section">
+
+            <div class="history-header">
+                <div>
+                    <div class="section-kicker">RECENT ACTIVITY</div>
+                    <h3>Analysis History</h3>
+                </div>
+
+                <button type="button" id="clearHistoryBtn">
+                    Clear History
+                </button>
+            </div>
+
+            <div id="historyList" class="history-list">
+
+                <div class="empty-history">
+                    <span>◷</span>
+
+                    <p>No analysis yet.</p>
+
+                    <small>
+                        Your recent analyses will appear here.
+                    </small>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section class="education-section">
+
+            <div class="section-kicker">STAY INFORMED</div>
+
+            <h3>Know the warning signs.</h3>
+
+            <div class="education-grid">
+
+                <article class="education-card">
+                    <div class="education-icon">⚠️</div>
+
+                    <h4>Urgent Requests</h4>
+
+                    <p>
+                        Be careful when a message pressures you
+                        to act immediately.
+                    </p>
+                </article>
+
+                <article class="education-card">
+                    <div class="education-icon">🎁</div>
+
+                    <h4>Unexpected Rewards</h4>
+
+                    <p>
+                        Unexpected prizes and offers may be
+                        designed to attract your attention.
+                    </p>
+                </article>
+
+                <article class="education-card">
+                    <div class="education-icon">🔑</div>
+
+                    <h4>Sensitive Information</h4>
+
+                    <p>
+                        Never disclose passwords or verification
+                        codes in response to suspicious requests.
+                    </p>
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <footer class="footer">
+            <a href="#" class="footer-brand">🛡️ PhishGuard</a>
+
+            <p>
+                Built for learning and email security awareness.
+            </p>
+
+            <p class="footer-small">
+                Rule-based analysis · No server-side email processing
+            </p>
+        </footer>
+
+    </main>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
